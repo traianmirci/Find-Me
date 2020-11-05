@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from '../components/Link';
-import Links from '../links';
-import { Container, Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab } from 'react-bootstrap';
+import axios from 'axios';
+import UserNotFound from './UserNotFound';
+import { profile } from '../actions/profileActions';
+import Message from '../components/Message';
+import Loader from '../components/Loader.jsx';
 
-function Profile() {
+function Profile({ match }) {
+  const dispatch = useDispatch();
+
+  const profileData = useSelector((state) => state.profile);
+  const { loading, error, profileUser } = profileData;
+
+  useEffect(() => {
+    dispatch(profile());
+  }, [match.params.id]);
+
+  if (!true) {
+    return <UserNotFound />;
+  }
+
   return (
-    <div class='profile-page'>
+    <div className='profile-page'>
       <div className='profile-image d-flex pb-3'>
         <img
           className='rounded-circle mx-auto'
           src='https://avatars1.githubusercontent.com/u/25345045?s=460&u=ce388cd9c959128460483c392d51ffa097cd917d&v=4'
           alt=''
-          srcset=''
+          srcSet=''
         />
       </div>
       <div className='description'>
@@ -22,9 +40,17 @@ function Profile() {
       <div className="navigation pb-3'">
         <Tabs defaultActiveKey='links' className='justify-content-center'>
           <Tab eventKey='links' title='Links'>
-            {Links.map((link) => (
-              <Link link={link} />
-            ))}
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant='danger'>{error}</Message>
+            ) : profileData.profile ? (
+              profileData.profile.data.user.links.map((link) => (
+                <Link link={link} />
+              ))
+            ) : (
+              ''
+            )}
           </Tab>
           <Tab eventKey='bio' title='Bio'>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Traian Alexandru Mirci",
+    "email": "traianmirci@gmail.com",
+    "password": "123456",
+    "user": "traianTesta",
+    "bio": "An empty bio is boring",
+    "username": "traianmirci"
+  },
+  {
+    "name": "Ioana Teodora Mirci",
+    "email": "ioanatm@gmail.com",
+    "password": "654321",
+    "user": "ioana",
+    "bio": "An empty bio is boring",
+    "username": "ioana"
+  }
+]
